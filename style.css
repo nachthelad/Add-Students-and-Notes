@@ -5,6 +5,19 @@
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
+/* Eliminar flechas de arriba abajo en input type numbers */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
 h2 {
   font-family: Arial, Helvetica, sans-serif;
   text-transform: uppercase;
@@ -12,61 +25,8 @@ h2 {
   margin-top: 5px;
 }
 
-#form {
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: large;
-}
-
-.inputContainer input,
-.inputContainer select {
-  padding: 2px;
-  font-size: 14px;
-  margin-top: 5px;
-  width: 300px;
-}
-
-.inputContainer {
-  margin: 10px;
-  width: 300px;
-}
-
-#name, #subject, #note, #dni{
-  font-size: large;
-}
-
-#note{
-  width: 70px;
-  height: 50px;
-}
-
-#addButton {
-  width: 100px;
-  padding: 3px;
-  border: 1px solid black;
-  border-radius: 7px;
-  font-size: large;
-}
-
-#addButton:hover{
-  background-color: #444;
-  color: #fff;
-}
-
-/* Estilos para el botón en modo oscuro */
-#addButton.theme-dark {
-  background-color: #444;
-  color: #fff;
-}
-
-/* Estilos para el botón en modo oscuro cuando se hace hover */
-#addButton.theme-dark:hover {
-  background-color: #fff;
-  color: #444;
+.form-label{
+  color: #858585;
 }
 
 table {
@@ -98,14 +58,6 @@ thead th {
   margin-top: 3px;
 }
 
-.switchBg {
-  background-color: #444;
-  padding: 7px;
-  border-radius: 40px;
-  display: flex;
-}
-
-/* creacion del switch */
 .switch {
   position: relative;
   display: inline-block;
@@ -113,14 +65,12 @@ thead th {
   height: 23px;
 }
 
-/* Hide default HTML checkbox */
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* The slider */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -140,30 +90,27 @@ thead th {
   width: 15px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: #fff;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+  background-color: #ccc;
 }
 
 input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
+  background-color: #212529;
 }
 
-/* Rounded sliders */
 .slider.round {
   border-radius: 34px;
 }
 
 .slider.round:before {
   border-radius: 50%;
+  background-color: #fff;
 }
