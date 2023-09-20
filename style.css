@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 5px;
+}
+
+#form {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: large;
+}
+
+.inputContainer input,
+.inputContainer select {
+  padding: 2px;
+  font-size: 14px;
+  margin-top: 5px;
+  width: 300px;
+}
+
+.inputContainer {
+  margin: 10px;
+  width: 300px;
+}
+
+#name, #subject, #note, #dni{
+  font-size: large;
+}
+
+#note{
+  width: 70px;
+  height: 50px;
+}
+
+#addButton {
+  width: 100px;
+  padding: 3px;
+  border: 1px solid black;
+  border-radius: 7px;
+  font-size: large;
+}
+
+#addButton:hover{
+  background-color: #444;
+  color: #fff;
+}
+
+/* Estilos para el botón en modo oscuro */
+#addButton.theme-dark {
+  background-color: #444;
+  color: #fff;
+}
+
+/* Estilos para el botón en modo oscuro cuando se hace hover */
+#addButton.theme-dark:hover {
+  background-color: #fff;
+  color: #444;
+}
+
+table {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+thead th {
+  background-color: #444;
+  color: #fff;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+#contenedor {
+  font-size: 14px;
+  text-align: center;
+}
+
+#contenedor p {
+  font-style: italic;
+}
+
+#header {
+  display: flex;
+  justify-content: center;
+  margin-top: 3px;
+}
+
+.switchBg {
+  background-color: #444;
+  padding: 7px;
+  border-radius: 40px;
+  display: flex;
+}
+
+/* creacion del switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 23px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
