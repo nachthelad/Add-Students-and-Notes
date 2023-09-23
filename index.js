@@ -1,24 +1,30 @@
-const studentList = document.getElementById("studentList");
-const studentName = document.getElementById("name");
-const studentSubject = document.getElementById("subject");
-const studentNote = document.getElementById("note");
-const addStudentNote = document.querySelector("#addStudentNote");
+const inputDNI = document.querySelector("#inputDNI");
+const inputName = document.querySelector("#inputName");
+const inputAge = document.querySelector("#inputAge");
+// const pokemonIcon = document.querySelector('input[name="pokemonIcon"]:checked').id;
+const selectElement = document.querySelector("#selectElement");
 const form = document.querySelector("#form");
 
-let students = JSON.parse(localStorage.getItem("students")) || [];
+let alumnos = JSON.parse(localStorage.getItem("alumnos")) || [];
 
 class Alumno {
-  constructor(name, subject, note) {
-    this.studentName = name;
-    this.subject = subject;
-    this.note = note;
+  constructor(dni, name, age, spriteUrl) {
+    this.inputName = name;
+    this.inputDNI = dni;
+    this.inputAge = age;
+    this.spriteUrl = spriteUrl;
   }
 }
+//Muestro los alumnos ya cargados en el select al inciar la pagina
+updateStudentDropdown();
 
 // Verifico si no esta el campo de nombre vacio
-function verifyEmptyName() {
-  if (studentName.value.trim() === "") {
-    alert(`El campo de Nombre y Apellido no puede estar vacío`);
+function verifyEmptyFields() {
+  if (inputName.value.trim() === "" || inputDNI.value.trim() === "" ||inputAge.value.trim() === "") {
+    Swal.fire({
+      icon: 'error',
+      title: 'Debe completar todos los campos'
+    })
     return false;
   }
   return true;
@@ -32,87 +38,98 @@ function capitalizeWords(text) {
   );
 }
 
-// Verifico si esta escribiendo una nota del 1 al 10
-function verifyNote() {
-  const possibleNotes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const selectedNote = parseInt(studentNote.value);
-  if (!possibleNotes.includes(selectedNote)) {
-    alert(`Debe ingresar una nota del 1 al 10`);
-    studentNote.value = "";
-    return false;
+// Agrego los alumnos al select de Carga de Notas
+function updateStudentDropdown() {
+  // Vaciar el select
+  while (selectElement.firstChild) {
+    selectElement.removeChild(selectElement.firstChild);
   }
-  if (possibleNotes.value === "") {
-    alert(`Debe ingresar una nota`);
-    return false;
+
+  // Agregar una opción por defecto
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "";
+  defaultOption.textContent = "Seleccionar";
+  selectElement.appendChild(defaultOption);
+
+  // Llenar el select con los alumnos actuales
+  for (let i = 0; i < alumnos.length; i++) {
+    const student = alumnos[i];
+    const option = document.createElement("option");
+    option.value = student.inputDNI;
+    option.textContent = student.inputName;
+    selectElement.appendChild(option);
   }
-  return true;
 }
 
-studentNote.addEventListener("input", verifyNote);
 
+// Agrego el alumno al array de alumnos
+function addNewStudent(dni, name, age){
+  // Obtener el spriteUrl del Pokémon seleccionado
+  // Aquí puedes colocar la lógica para obtener la URL del sprite
+  // const spriteUrl = obtenerSpriteUrl(selectedIconId);  
 
-// Agrego los nombres a las tablas
-function addStudent(student) {
-  const studentRow = document.createElement("tr");
+  const existingStudent = alumnos.find(alumno => alumno.inputDNI === dni);
   
-  const studentNameItem = document.createElement("td");
-  studentNameItem.innerHTML = student.studentName;
-
-  const studentSubjectItem = document.createElement("td");
-  studentSubjectItem.innerHTML = student.subject; 
-
-  const studentNoteItem = document.createElement("td");
-  studentNoteItem.innerHTML = student.note;
-
-  studentRow.appendChild(studentNameItem);
-  studentRow.appendChild(studentSubjectItem);
-  studentRow.appendChild(studentNoteItem);
-
-  studentList.appendChild(studentRow);
-
-  if (students.length > 0) {
-    addStudentNote.style.display = "none";
-  } else {
-    addStudentNote.style.display = "block";
+  if (existingStudent) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Este DNI ya ha sido registrado'
+    });
+    return; // Terminar la función si el DNI ya existe
   }
-  
-  studentName.value = "";
-  studentSubject.value = "Matemática";
-  studentNote.value = "";
-}
 
-function loadStudents() {
-  students.forEach((student) => {
-    addStudent(student);
+  const newStudent = new Alumno(dni, name, age);
+
+  alumnos.push(newStudent);
+
+  localStorage.setItem("alumnos", JSON.stringify(alumnos));
+  console.log(alumnos);
+  
+  Swal.fire({
+    icon: 'success',
+    title: 'Alumno agregado'
   });
+
+  inputDNI.value = ''
+  inputName.value = ''
+  inputAge.value = ''
+
+  updateStudentDropdown();
 }
 
-// Funcion del submit
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  if (!verifyEmptyName() || !verifyNote()) {
-    return;
+//Evento que muestro el alumno con su tabla de materias
+selectElement.addEventListener("change", e => {
+  const selectedDNI = e.target.value; 
+  if (selectedDNI === "Seleccionar") {
+    return; 
   }
 
-  const capitalizedStudentName = capitalizeWords(
-    studentName.value.toLowerCase()
-  );
-  studentName.value = capitalizedStudentName;
+  // Buscar el alumno correspondiente en el array de alumnos
+  const alumnoSeleccionado = alumnos.find((alumno) => alumno.inputDNI === selectedDNI);
+  
+  const selectedStudentDiv = document.querySelector('#selectedStudentDiv');
+  const selectedStudent = document.querySelector('#selectedStudent');
 
-  const name = studentName.value;
-  const subject = studentSubject.value;
-  const note = studentNote.value;
-
-  const student = new Alumno(name, subject, note);
-
-  students.push(student);
-  console.log(student);
-
-  localStorage.setItem("students", JSON.stringify(students));
-
-  addStudent(student)
-
+  selectedStudent.innerHTML = `${alumnoSeleccionado.inputName}`;
+  selectedStudentDiv.style.display = 'flex';
 });
 
-loadStudents();
+
+// Evento del submit
+form.addEventListener("submit", e => {
+  e.preventDefault();
+
+  if (!verifyEmptyFields()) {
+    return;
+  }
+  const dni = document.querySelector("#inputDNI").value;
+  const name = capitalizeWords(document.querySelector("#inputName").value);
+  const age = document.querySelector("#inputAge").value;
+  // const selectedIconId = document.querySelector('input[name="pokemonIcon"]:checked').id;
+
+  addNewStudent(dni, name, age);
+  // localStorage.clear()
+});
+
+
+

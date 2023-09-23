@@ -14,7 +14,7 @@
       rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous" />
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="style.css" />
     <title>Proyecto Final - Ventura</title>
   </head>
@@ -34,36 +34,41 @@
       </div>
     </div>
 
-    <h2 class="h2 text-wrap">Carga de alumnos para el colegio</h2>
+    <h2 class="h2 text-wrap">
+      Carga de alumnos para el colegio
+    </h2>
 
-      <ul class="nav nav-pills d-flex justify-content-center" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active"
-            id="home-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#home-tab-pane"
-            type="button"
-            role="tab"
-            aria-controls="home-tab-pane"
-            aria-selected="true">
-            Carga de Alumnos
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="add-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#add-tab-pane"
-            type="button"
-            role="tab"
-            aria-controls="add-tab-pane"
-            aria-selected="false">
-            Carga de Notas
-          </button>
-        </li>
-      </ul>
+    <ul
+      class="nav nav-pills d-flex justify-content-center"
+      id="myTab"
+      role="tablist">
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link active"
+          id="home-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#home-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="home-tab-pane"
+          aria-selected="true">
+          Carga de Alumnos
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="add-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#add-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="add-tab-pane"
+          aria-selected="false">
+          Carga de Notas
+        </button>
+      </li>
+    </ul>
     <!-- Tab de Carga de Alumnos -->
     <div class="d-flex justify-content-center mt-2">
       <div class="tab-content" id="myTabContent">
@@ -92,18 +97,57 @@
                 id="inputName"
                 placeholder="Roque"
                 required />
-              <label for="inputName" class="form-label">Nombre y Apellido</label>
+              <label for="inputName" class="form-label"
+                >Nombre y Apellido</label
+              >
             </div>
+            <!-- Age -->
             <div class="form-floating mb-2">
               <input
                 type="number"
                 class="form-control"
-                id="inputApellido"
+                id="inputAge"
                 placeholder="Perez"
                 required />
-              <label for="inputApellido" class="form-label">Edad</label>
+              <label for="inputAge" class="form-label">Edad</label>
             </div>
-            <!-- Age -->
+            <!-- Icon -->
+            <div id="iconDiv" class="m-2">
+              <p class="mb-1">Seleccione un Pokémon como ícono</p>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="pokemonIcon"
+                  id="iconRadio1"
+                  checked />
+                <label class="form-check-label" for="iconRadio1">
+                  Bulbasaur
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="pokemonIcon"
+                  id="iconRadio2" />
+                <label class="form-check-label" for="iconRadio2">
+                  Squirtle
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="pokemonIcon"
+                  id="iconRadio3" />
+                <label class="form-check-label" for="iconRadio3">
+                  Charmander
+                </label>
+              </div>
+              <!-- Icon -->
+              <!-- Submit -->
+            </div>
             <div class="d-flex justify-content-center">
               <button
                 type="submit"
@@ -122,22 +166,41 @@
           role="tabpanel"
           aria-labelledby="add-tab"
           tabindex="0">
-          <div id="contenedor">
-            <table class="table-bordered">
-              <thead>
+          <div class="form-floating selectElement">
+            <select class="form-select w-100" id="selectElement">
+              <option value='Seleccionar' selected>Seleccionar</option>
+            </select>
+            <label for="selectElement">Alumnos</label>
+          </div>
+          <h2 id="selectedStudent"></h2>
+          <div id="selectedStudentDiv">
+            <table class="table table-striped">
+              <tbody>
                 <tr>
-                  <th>Alumno</th>
-                  <th>Materia</th>
-                  <th>Nota</th>
+                  <td>Matematica</td>
+                  <td>2</td>
                 </tr>
-              </thead>
-              <tbody id="studentList"></tbody>
+                <tr>
+                  <td>Fisica</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>Quimica</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>Programacion</td>
+                  <td>5</td>
+                </tr>
+                <tr class="averageStyle">
+                  <td>Promedio</td>
+                  <td>4</td>
+                </tr>
+              </tbody>
             </table>
-            <p id="addStudentNote">
-              Cargue alumnos para poder mostrarlos en la tabla
-            </p>
           </div>
         </div>
+        <!-- Tab de Carga de Notas -->
       </div>
     </div>
 
