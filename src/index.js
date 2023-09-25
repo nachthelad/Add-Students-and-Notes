@@ -97,7 +97,7 @@ function updateStudentDropdownWithJson() {
       let localStorageAlumnos =
         JSON.parse(localStorage.getItem("alumnos")) || [];
 
-      // Eliminar duplicados basados en el DNI
+      // Elimino los duplicados basados en el DNI
       const combinedAlumnos = [...jsonAlumnos, ...localStorageAlumnos].filter(
         (alumno, index, self) =>
           self.findIndex((t) => t.inputDNI === alumno.inputDNI) === index
@@ -113,10 +113,8 @@ function updateStudentDropdownWithJson() {
           )
       );
 
-      // Actualizar el localStorage
       localStorage.setItem("alumnos", JSON.stringify(alumnos));
 
-      // Actualizar el dropdown
       updateStudentDropdown();
     })
     .catch((error) => {
@@ -190,9 +188,9 @@ function addNewStudent(dni, name, age) {
 function deleteStudent() {
   const selectedDNI = selectElement.value;
 
-  const index = alumnos.findIndex((alumno) => alumno.inputDNI === selectedDNI);
-  if (index !== -1) {
-    alumnos.splice(index, 1);
+  const i = alumnos.findIndex((alumno) => alumno.inputDNI === selectedDNI);
+  if (i !== -1) {
+    alumnos.splice(i, 1);
   }
 
   localStorage.setItem("alumnos", JSON.stringify(alumnos));
@@ -235,22 +233,27 @@ function updateStudentGrade(subjectName, grade) {
   }
 
   student.subjects[subjectName] = parseInt(grade, 10);
-  console.log(student);
+
   student.average = student.calculateAverage();
 
   localStorage.setItem("alumnos", JSON.stringify(alumnos));
 
   const finalAverage = document.querySelector("#finalAverage");
   if (finalAverage) {
-    finalAverage.textContent = `${student.average.toFixed(2)}`;
+    finalAverage.textContent = `${student.average.toFixed(1)}`;
   }
 }
 
 //Evento que muestra el alumno con su tabla de materias
 selectElement.addEventListener("change", (e) => {
   const selectedDNI = e.target.value;
-  const deleteStudent = document.querySelector("#deleteStudent");  
+  const deleteStudent = document.querySelector("#deleteStudent");
   const selectedStudent = document.querySelector("#selectedStudent");
+  const finalAverage = document.querySelector("#finalAverage");
+
+  if (finalAverage) {
+    finalAverage.textContent = "";
+  }
 
   if (selectedDNI === "Seleccionar") {
     selectedStudent.style.display = "none";
@@ -264,7 +267,6 @@ selectElement.addEventListener("change", (e) => {
   );
 
   setStudentGradesToInput(selectedDNI);
-
 
   selectedStudent.innerHTML = `${alumnoSeleccionado.inputName}`;
   selectedStudent.style.display = "inline";
@@ -282,7 +284,6 @@ form.addEventListener("submit", (e) => {
   const dni = document.querySelector("#inputDNI").value;
   const name = capitalizeWords(document.querySelector("#inputName").value);
   const age = document.querySelector("#inputAge").value;
-  // const selectedIconId = document.querySelector('input[name="pokemonIcon"]:checked').id;
 
   addNewStudent(dni, name, age);
 });
@@ -306,24 +307,36 @@ deleteStudentIcon.addEventListener("click", (e) => {
 });
 
 mathNote.addEventListener("input", function () {
-  if (this.value < 1) this.value = 1;
-  if (this.value > 10) this.value = 10;
+  if (this.value === "") return;
+  const numValue = parseInt(this.value, 10);
+
+  if (numValue < 1) this.value = 1;
+  if (numValue > 10) this.value = 10;
   updateStudentGrade("Matematica", this.value);
 });
 
 physicsNote.addEventListener("input", function () {
+  if (this.value === "") return;
+  const numValue = parseInt(this.value, 10);
+
   if (this.value < 1) this.value = 1;
   if (this.value > 10) this.value = 10;
   updateStudentGrade("Fisica", this.value);
 });
 
 chemNote.addEventListener("input", function () {
+  if (this.value === "") return;
+  const numValue = parseInt(this.value, 10);
+
   if (this.value < 1) this.value = 1;
   if (this.value > 10) this.value = 10;
   updateStudentGrade("Quimica", this.value);
 });
 
 devNote.addEventListener("input", function () {
+  if (this.value === "") return;
+  const numValue = parseInt(this.value, 10);
+
   if (this.value < 1) this.value = 1;
   if (this.value > 10) this.value = 10;
   updateStudentGrade("Programacion", this.value);
