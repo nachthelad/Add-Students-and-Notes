@@ -319,8 +319,8 @@ physicsNote.addEventListener("input", function () {
   if (this.value === "") return;
   const numValue = parseInt(this.value, 10);
 
-  if (this.value < 1) this.value = 1;
-  if (this.value > 10) this.value = 10;
+  if (numValue < 1) this.value = 1;
+  if (numValue > 10) this.value = 10;
   updateStudentGrade("Fisica", this.value);
 });
 
@@ -328,8 +328,8 @@ chemNote.addEventListener("input", function () {
   if (this.value === "") return;
   const numValue = parseInt(this.value, 10);
 
-  if (this.value < 1) this.value = 1;
-  if (this.value > 10) this.value = 10;
+  if (numValue < 1) this.value = 1;
+  if (numValue > 10) this.value = 10;
   updateStudentGrade("Quimica", this.value);
 });
 
@@ -337,7 +337,7 @@ devNote.addEventListener("input", function () {
   if (this.value === "") return;
   const numValue = parseInt(this.value, 10);
 
-  if (this.value < 1) this.value = 1;
-  if (this.value > 10) this.value = 10;
+  if (numValue < 1) this.value = 1;
+  if (numValue > 10) this.value = 10;
   updateStudentGrade("Programacion", this.value);
 });
