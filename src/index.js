@@ -41,16 +41,23 @@ class Alumno {
 }
 
 // Convierto cada objeto en una instancia de Alumno ya que sino alumnos era un JSON regular y no una instancia de Alumnos
-alumnos = alumnos.map(alumno => new Alumno(alumno.inputDNI, alumno.inputName, alumno.inputAge, alumno.average));
+alumnos = alumnos.map(
+  (alumno) =>
+    new Alumno(
+      alumno.inputDNI,
+      alumno.inputName,
+      alumno.inputAge,
+      alumno.average
+    )
+);
 
 //Muestro los alumnos ya cargados en el select al inciar la pagina
 updateStudentDropdownWithJson();
 
-
 // Verifico si la edad ingresada es correcta
 function correctAge(age) {
   const parsedAge = parseInt(age, 10);
-  
+
   if (isNaN(parsedAge)) {
     return false;
   }
@@ -79,7 +86,7 @@ function verifyEmptyFields() {
     });
     return false;
   }
-  
+
   return true;
 }
 
@@ -96,7 +103,15 @@ function updateStudentDropdownWithJson() {
           self.findIndex((t) => t.inputDNI === alumno.inputDNI) === index
       );
 
-      alumnos = combinedAlumnos.map(alumno => new Alumno(alumno.inputDNI, alumno.inputName, alumno.inputAge, alumno.average));
+      alumnos = combinedAlumnos.map(
+        (alumno) =>
+          new Alumno(
+            alumno.inputDNI,
+            alumno.inputName,
+            alumno.inputAge,
+            alumno.average
+          )
+      );
 
       // Actualizar el localStorage
       localStorage.setItem("alumnos", JSON.stringify(alumnos));
@@ -126,6 +141,11 @@ function updateStudentDropdown() {
   while (selectElement.firstChild) {
     selectElement.removeChild(selectElement.firstChild);
   }
+
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "Seleccionar";
+  defaultOption.textContent = "Seleccionar";
+  selectElement.appendChild(defaultOption);
 
   for (let i = 0; i < alumnos.length; i++) {
     const student = alumnos[i];
@@ -190,23 +210,18 @@ function deleteStudent() {
   });
 }
 
-// -----------------------------------------------------
-
-// Esta función configura las notas seleccionadas en los input
+// Ingresa campos vacios en los input de las materias
 function setStudentGradesToInput(studentDNI) {
   const student = alumnos.find((alumno) => alumno.inputDNI === studentDNI);
   if (!student) {
     return;
   }
 
-  mathNote.value = student.subjects.Matematica || '';
-  physicsNote.value = student.subjects.Fisica || '';
-  chemNote.value = student.subjects.Quimica || '';
-  devNote.value = student.subjects.Programacion || '';
+  mathNote.value = student.subjects.Matematica || "";
+  physicsNote.value = student.subjects.Fisica || "";
+  chemNote.value = student.subjects.Quimica || "";
+  devNote.value = student.subjects.Programacion || "";
 }
-
-
-// -----------------------------------------------------
 
 function updateStudentGrade(subjectName, grade) {
   const selectedDNI = selectElement.value;
@@ -219,10 +234,9 @@ function updateStudentGrade(subjectName, grade) {
     return;
   }
 
-  student.subjects[subjectName] = parseInt(grade, 10); 
-  console.log(student)
+  student.subjects[subjectName] = parseInt(grade, 10);
+  console.log(student);
   student.average = student.calculateAverage();
-  
 
   localStorage.setItem("alumnos", JSON.stringify(alumnos));
 
@@ -235,9 +249,13 @@ function updateStudentGrade(subjectName, grade) {
 //Evento que muestra el alumno con su tabla de materias
 selectElement.addEventListener("change", (e) => {
   const selectedDNI = e.target.value;
-  const deleteStudent = document.querySelector("#deleteStudent");
+  const deleteStudent = document.querySelector("#deleteStudent");  
+  const selectedStudent = document.querySelector("#selectedStudent");
 
-  if (selectedDNI === "Seleccionar" || selectedDNI === "") {
+  if (selectedDNI === "Seleccionar") {
+    selectedStudent.style.display = "none";
+    deleteStudent.style.display = "none";
+    selectedStudentDiv.style.display = "none";
     return;
   }
 
@@ -245,13 +263,13 @@ selectElement.addEventListener("change", (e) => {
     (alumno) => alumno.inputDNI === selectedDNI
   );
 
-  setStudentGradesToInput(selectedDNI); 
+  setStudentGradesToInput(selectedDNI);
 
-  const selectedStudent = document.querySelector("#selectedStudent");
 
   selectedStudent.innerHTML = `${alumnoSeleccionado.inputName}`;
-  selectedStudentDiv.style.display = "flex";
+  selectedStudent.style.display = "inline";
   deleteStudent.style.display = "inline";
+  selectedStudentDiv.style.display = "flex";
 });
 
 // Evento del submit
@@ -287,25 +305,25 @@ deleteStudentIcon.addEventListener("click", (e) => {
   });
 });
 
-mathNote.addEventListener("input", function() {
+mathNote.addEventListener("input", function () {
   if (this.value < 1) this.value = 1;
   if (this.value > 10) this.value = 10;
   updateStudentGrade("Matematica", this.value);
 });
 
-physicsNote.addEventListener("input", function() {
+physicsNote.addEventListener("input", function () {
   if (this.value < 1) this.value = 1;
   if (this.value > 10) this.value = 10;
   updateStudentGrade("Fisica", this.value);
 });
 
-chemNote.addEventListener("input", function() {
+chemNote.addEventListener("input", function () {
   if (this.value < 1) this.value = 1;
   if (this.value > 10) this.value = 10;
   updateStudentGrade("Quimica", this.value);
 });
 
-devNote.addEventListener("input", function() {
+devNote.addEventListener("input", function () {
   if (this.value < 1) this.value = 1;
   if (this.value > 10) this.value = 10;
   updateStudentGrade("Programacion", this.value);
