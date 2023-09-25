@@ -4,8 +4,6 @@ const inputAge = document.querySelector("#inputAge");
 const deleteStudentIcon = document.querySelector("#deleteStudent");
 const selectElement = document.querySelector("#selectElement");
 const form = document.querySelector("#form");
-// const saveGradesButton = document.querySelector("#saveGrades");
-
 
 const mathNote = document.querySelector("#mathNote");
 const physicsNote = document.querySelector("#physicsNote");
@@ -41,16 +39,24 @@ class Alumno {
     return sum / count;
   }
 }
+
+// Convierto cada objeto en una instancia de Alumno ya que sino alumnos era un JSON regular y no una instancia de Alumnos
 alumnos = alumnos.map(alumno => new Alumno(alumno.inputDNI, alumno.inputName, alumno.inputAge, alumno.average));
 
 //Muestro los alumnos ya cargados en el select al inciar la pagina
 updateStudentDropdownWithJson();
 
-// Lleno los elementos select con las notas
-fillSelectWithGrades(mathNote);
-fillSelectWithGrades(physicsNote);
-fillSelectWithGrades(chemNote);
-fillSelectWithGrades(devNote);
+
+// Verifico si la edad ingresada es correcta
+function correctAge(age) {
+  const parsedAge = parseInt(age, 10);
+  
+  if (isNaN(parsedAge)) {
+    return false;
+  }
+
+  return parsedAge >= 18 && parsedAge <= 100;
+}
 
 // Verifico si no esta el campo de nombre vacio
 function verifyEmptyFields() {
@@ -65,6 +71,15 @@ function verifyEmptyFields() {
     });
     return false;
   }
+
+  if (!correctAge(inputAge.value)) {
+    Swal.fire({
+      icon: "error",
+      title: "La edad ingresada no es válida",
+    });
+    return false;
+  }
+  
   return true;
 }
 
@@ -98,16 +113,6 @@ function updateStudentDropdownWithJson() {
     });
 }
 
-// Llena un elemento select con opciones del 1 al 10.
-function fillSelectWithGrades(selectElement) {
-  for (let i = 1; i <= 10; i++) {
-    const option = document.createElement("option");
-    option.value = i;
-    option.textContent = i;
-    selectElement.appendChild(option);
-  }
-}
-
 // Capitalizo la primera letra de cada nombre si no lo está
 function capitalizeWords(text) {
   return text.replace(
@@ -122,13 +127,6 @@ function updateStudentDropdown() {
     selectElement.removeChild(selectElement.firstChild);
   }
 
-  // Agregar una opción por defecto
-  const defaultOption = document.createElement("option");
-  defaultOption.value = "";
-  defaultOption.textContent = "Seleccionar";
-  selectElement.appendChild(defaultOption);
-
-  // Llenar el select con los alumnos actuales
   for (let i = 0; i < alumnos.length; i++) {
     const student = alumnos[i];
     const option = document.createElement("option");
