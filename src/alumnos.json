@@ -1,0 +1,87 @@
+[
+    {
+      "inputDNI": "40782212",
+      "inputName": "Juan Pérez",
+      "inputAge": 25,
+      "subjects": [
+        {"nombre": "Física", "nota": ""},
+        {"nombre": "Química", "nota": ""},
+        {"nombre": "Matemática", "nota": ""},
+        {"nombre": "Programación", "nota": ""}
+      ],
+      "average": ""
+    },
+    {
+      "inputDNI": "32628721",
+      "inputName": "Micaela González",
+      "inputAge": 31,
+      "subjects": [
+        {"nombre": "Física", "nota": ""},
+        {"nombre": "Química", "nota": ""},
+        {"nombre": "Matemática", "nota": ""},
+        {"nombre": "Programación", "nota": ""}
+      ],
+      "average": ""
+    },
+    {
+      "inputDNI": "35920182",
+      "inputName": "Carlos Rodríguez",
+      "inputAge": 27,
+      "subjects": [
+        {"nombre": "Física", "nota": ""},
+        {"nombre": "Química", "nota": ""},
+        {"nombre": "Matemática", "nota": ""},
+        {"nombre": "Programación", "nota": ""}
+      ],
+      "average": ""
+    },
+    {
+      "inputDNI": "36988112",
+      "inputName": "Lucía Martínez",
+      "inputAge": 23,
+      "subjects": [
+        {"nombre": "Física", "nota": ""},
+        {"nombre": "Química", "nota": ""},
+        {"nombre": "Matemática", "nota": ""},
+        {"nombre": "Programación", "nota": ""}
+      ],
+      "average": ""
+    },
+    {
+      "inputDNI": "38276710",
+      "inputName": "Luis García",
+      "inputAge": 29,
+      "subjects": [
+        {"nombre": "Física", "nota": ""},
+        {"nombre": "Química", "nota": ""},
+        {"nombre": "Matemática", "nota": ""},
+        {"nombre": "Programación", "nota": ""}
+      ],
+      "average": ""
+    },
+    {
+      "inputDNI": "42090924",
+      "inputName": "Sofía López",
+      "inputAge": 24,
+      "subjects": [
+        {"nombre": "Física", "nota": ""},
+        {"nombre": "Química", "nota": ""},
+        {"nombre": "Matemática", "nota": ""},
+        {"nombre": "Programación", "nota": ""}
+      ],
+      "average": ""
+    },
+    {
+      "inputDNI": "42781260",
+      "inputName": "Martín Hernández",
+      "inputAge": 33,
+      "subjects": [
+        {"nombre": "Física", "nota": ""},
+        {"nombre": "Química", "nota": ""},
+        {"nombre": "Matemática", "nota": ""},
+        {"nombre": "Programación", "nota": ""}
+      ],
+      "average": ""
+    }
+  ]
+  
