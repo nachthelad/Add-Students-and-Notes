@@ -307,6 +307,7 @@ deleteStudentIcon.addEventListener("click", (e) => {
 });
 
 mathNote.addEventListener("input", function () {
+  this.value = this.value.replace(/[^0-9]/g, "");
   if (this.value === "") return;
   const numValue = parseInt(this.value, 10);
 
@@ -316,6 +317,7 @@ mathNote.addEventListener("input", function () {
 });
 
 physicsNote.addEventListener("input", function () {
+  this.value = this.value.replace(/[^0-9]/g, "");
   if (this.value === "") return;
   const numValue = parseInt(this.value, 10);
 
@@ -325,6 +327,7 @@ physicsNote.addEventListener("input", function () {
 });
 
 chemNote.addEventListener("input", function () {
+  this.value = this.value.replace(/[^0-9]/g, "");
   if (this.value === "") return;
   const numValue = parseInt(this.value, 10);
 
@@ -334,6 +337,7 @@ chemNote.addEventListener("input", function () {
 });
 
 devNote.addEventListener("input", function () {
+  this.value = this.value.replace(/[^0-9]/g, "");
   if (this.value === "") return;
   const numValue = parseInt(this.value, 10);
 
