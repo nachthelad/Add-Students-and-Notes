@@ -1,2 +1,2 @@
-# Proyecto Final - Ventura
+# Proyecto Final curso JavaScript en CoderHouse
 
